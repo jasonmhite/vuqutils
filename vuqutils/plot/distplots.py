@@ -3,7 +3,7 @@ import pandas as pd
 
 __all__ = ["uncertainty_plot"]
 
-def uncertainty_plot(data, center=None, relative=False, filternull=True):
+def uncertainty_plot(data, center=True, relative=False, filternull=True):
     """
     Take a Series object and make a relative uncertainty plot. This
     centers the plot and annotates with mean and standard deviation.
@@ -12,8 +12,9 @@ def uncertainty_plot(data, center=None, relative=False, filternull=True):
     ----------
 
     data:  a Pandas Series object that contains the data.
-    center: If given, center the data on this point, otherwise center
-            on the mean.
+    center: If true, center on mean. If false, do no centering.
+            Else, treat center as an explicit value to center on.
+            Default true.
     filternull: If true (default), filter out null values in the data.
     relative: If true, normalize width to the standard deviation
               (default false)
@@ -24,11 +25,17 @@ def uncertainty_plot(data, center=None, relative=False, filternull=True):
     else:
         plotdata = data
 
-    if center is None:
-        center = plotdata.mean()
-
     if relative is True:
         plotdata /= plotdata.std()
+
+    if center is True:
+        center = 0.
+        plotdata -= data.mean()
+    elif center is False:
+        center = plotdata.mean()
+    elif center is not False:
+        plotdata -= center
+
 
     bbox_style = {'boxstyle': 'round', 'fc': 'white', 'lw': 2,
             'alpha': .7, 'ec': 'grey',}
@@ -39,5 +46,5 @@ def uncertainty_plot(data, center=None, relative=False, filternull=True):
         transform=ax.transAxes,
         bbox=bbox_style,
         )
-    ax.axvline(0, color='black')
+    ax.axvline(center, color='black')
     return(ax)
