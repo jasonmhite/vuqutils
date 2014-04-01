@@ -30,11 +30,14 @@ def uncertainty_plot(data, center=True, relative=False, filternull=True):
 
     if center is True:
         center = 0.
-        plotdata -= data.mean()
+        plotdata -= plotdata.mean()
     elif center is False:
         center = plotdata.mean()
-    elif center is not False:
-        plotdata -= center
+    elif center is not False: # Center is a number
+        if relative is True:
+            raise ValueError("Can't have relative and specified center")
+        else:
+            plotdata -= center
 
 
     bbox_style = {'boxstyle': 'round', 'fc': 'white', 'lw': 2,
