@@ -12,7 +12,8 @@ setup(
     long_description=open('README.txt').read(),
     install_requires=[
         "seaborn",
-        "tables"
+        "tables",
+        "numexpr", # for pytables
     ],
     scripts=[
         'bin/sdf2hdf5',
