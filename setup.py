@@ -13,6 +13,7 @@ setup(
     install_requires=[
         "seaborn",
         "numexpr >= 2.0.0", # for pytables
+        "cython",
         "tables",
     ],
     scripts=[
