@@ -12,7 +12,7 @@ setup(
     long_description=open('README.txt').read(),
     install_requires=[
         "seaborn",
-        "pytables"
+        "tables"
     ],
     scripts=[
         'bin/sdf2hdf5',
