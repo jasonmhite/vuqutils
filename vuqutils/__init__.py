@@ -1,3 +1,3 @@
-import plot
-import math
-import files
+from . import plot
+from . import math
+from . import files
